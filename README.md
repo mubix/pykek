@@ -16,12 +16,19 @@ http://twitter.com/bidord
 
 # Library content
 * kek.krb5: Kerberos V5 ([RFC 4120](https://tools.ietf.org/html/rfc4120)) ASN.1 structures and basic protocol functions
-* kek.ccache: Credential Cache Binary Format ([cchache](http://www.gnu.org/software/shishi/manual/html_node/The-Credential-Cache-Binary-File-Format.html)
+* kek.ccache: Credential Cache Binary Format ([cchache](http://www.gnu.org/software/shishi/manual/html_node/The-Credential-Cache-Binary-File-Format.html))
 * kek.pac: Microsoft Privilege Attribute Certificate Data Structure ([MS-PAC](http://msdn.microsoft.com/en-us/library/cc237917.aspx))
 * kek.crypto: Kerberos and MS specific cryptographic functions
 
 # Exploits
 ## ms14-068.py
+Exploits [MS14-680](https://technet.microsoft.com/en-us/library/security/ms14-068.aspx) vulnerability on an un-patched domain controler of an Active Directory domain to get a Kerberos ticket for ANY domain user account with the privileges of the following domain groups :
+- Domain Users (513)
+- Domain Admins (512)
+- Schema Admins (518)
+- Enterprise Admins (519)
+- Group Policy Creator Owners (520)
+
 ### Usage :
 ```
 USAGE:
