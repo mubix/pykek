@@ -1,5 +1,11 @@
 #!/usr/bin/python
 
+# Author
+# ------
+# Sylvain Monné
+# Contact : sylvain dot monne at solucom dot fr
+# http://twitter.com/bidord
+
 from socket import socket
 
 from pyasn1.type.univ import Integer, Sequence, SequenceOf, OctetString, BitString, Boolean

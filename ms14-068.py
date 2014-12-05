@@ -1,5 +1,15 @@
 #!/usr/bin/python
 
+# MS14-068 Exploit
+
+# Author
+# ------
+# Sylvain Monné
+# Contact : sylvain dot monne at solucom dot fr
+# http://twitter.com/bidord
+
+
+
 import sys, os
 from random import getrandbits
 from time import time, localtime, strftime

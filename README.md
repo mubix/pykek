@@ -5,6 +5,11 @@ PyKEK (Python Kerberos Exploitation Kit), a python library to manipulate KRB5-re
 For now, only a few functionalities have been implemented (in a quite Quick'n'Dirty way) to exploit  MS14-068 (CVE-2014-6324) .
 More is coming...
 
+# Author
+Sylvain Monné
+Contact : sylvain dot monne at solucom dot fr
+http://twitter.com/bidord
+
 # Library content
 * kek.krb5: Kerberos V5 ([RFC 4120](https://tools.ietf.org/html/rfc4120)) ASN.1 structures and basic protocol functions
 * kek.ccache: Credential Cache Binary Format ([cchache](http://www.gnu.org/software/shishi/manual/html_node/The-Credential-Cache-Binary-File-Format.html)

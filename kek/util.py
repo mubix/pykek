@@ -1,5 +1,11 @@
 #!/usr/bin/python
 
+# Author
+# ------
+# Sylvain Monné
+# Contact : sylvain dot monne at solucom dot fr
+# http://twitter.com/bidord
+
 from struct import unpack, pack
 from time import time, gmtime, strftime, strptime, localtime
 from calendar import timegm
