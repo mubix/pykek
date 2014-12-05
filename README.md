@@ -22,7 +22,7 @@ http://twitter.com/bidord
 
 # Exploits
 ## ms14-068.py
-Exploits [MS14-680](https://technet.microsoft.com/en-us/library/security/ms14-068.aspx) vulnerability on an un-patched domain controler of an Active Directory domain to get a Kerberos ticket for ANY domain user account with the privileges of the following domain groups :
+Exploits [MS14-680](https://technet.microsoft.com/en-us/library/security/ms14-068.aspx) vulnerability on an un-patched domain controler of an Active Directory domain to get a Kerberos ticket for an existing domain user account with the privileges of the following domain groups :
 - Domain Users (513)
 - Domain Admins (512)
 - Schema Admins (518)
