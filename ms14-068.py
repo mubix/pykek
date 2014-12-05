@@ -160,6 +160,7 @@ if __name__ == '__main__':
         print >> sys.stderr, 'OPTIONS:'
         print >> sys.stderr, '    -p <clearPassword>'
         print >> sys.stderr, ' --rc4 <ntlmHash>'
+        sys.exit(1)
 
     opts, args = getopt(sys.argv[1:], 'u:s:d:p:', ['rc4='])
     opts = dict(opts)
