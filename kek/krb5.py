@@ -2,7 +2,7 @@
 
 # Author
 # ------
-# Sylvain Monné
+# Sylvain Monne
 # Contact : sylvain dot monne at solucom dot fr
 # http://twitter.com/bidord
 
